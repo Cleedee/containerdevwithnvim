@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nvim:
+    build: .
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 2G
+    volumes:
+      - ./projects/:/root/workspace
+      - ./config/:/root/.config/nvim
+
