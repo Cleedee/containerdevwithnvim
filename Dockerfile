@@ -11,10 +11,15 @@ RUN apk add --no-cache gcc
 RUN apk add --no-cache python3-dev
 RUN apk add --no-cache libc-dev
 RUN apk add --update alpine-sdk linux-headers
+RUN apk add --no-cache npm
 
 # Instalação do Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN apk add --no-cache ripgrep
 
+# NPM
+RUN npm install -g typescript typescript-language-server
+RUN npm install -g pyright
 
 # Criar diretório para os arquivos de configuração do Neovim
 RUN mkdir -p /root/.config/nvim/lua
