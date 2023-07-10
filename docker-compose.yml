@@ -8,6 +8,9 @@ services:
       resources:
         limits:
           memory: 2G
+    ports:
+      - "4200:4200"
+      - "3000:3000"
     volumes:
       - ./projects/:/root/workspace
       - ./config/:/root/.config/nvim

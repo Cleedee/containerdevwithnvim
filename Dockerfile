@@ -20,6 +20,9 @@ RUN apk add --no-cache ripgrep
 # NPM
 RUN npm install -g typescript typescript-language-server
 RUN npm install -g pyright
+RUN npm install -g @angular/cli
+RUN npm install -g json-server
+RUN npm install -g tailwindcss-language-server
 
 # Criar diretório para os arquivos de configuração do Neovim
 RUN mkdir -p /root/.config/nvim/lua
@@ -35,5 +38,8 @@ RUN mkdir -p /root/workspace
 
 # Informar a localização padrão para iniciar o container
 WORKDIR /root/workspace
+
+EXPOSE 4200
+EXPOSE 3000
 
 CMD ["tail", "-f", "/dev/null"]
