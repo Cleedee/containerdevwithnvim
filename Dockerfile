@@ -1,4 +1,4 @@
-from alpine:3.18
+FROM alpine:3.23
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pypoetry/venv/bin
 
@@ -12,6 +12,7 @@ RUN apk add --no-cache python3-dev
 RUN apk add --no-cache libc-dev
 RUN apk add --update alpine-sdk linux-headers
 RUN apk add --no-cache npm
+RUN apk add --no-cache fd
 
 # Instalação do Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -

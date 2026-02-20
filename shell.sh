@@ -1,1 +1,1 @@
-docker exec -it docker_nvim-nvim-1 /bin/ash
+docker exec -it docker_nvim_nvim_1 /bin/ash
