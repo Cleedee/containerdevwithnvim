@@ -13,6 +13,11 @@ RUN apk add --no-cache libc-dev
 RUN apk add --update alpine-sdk linux-headers
 RUN apk add --no-cache npm
 RUN apk add --no-cache fd
+RUN apk add --no-cache tar
+RUN apk add --no-cache luarocks
+RUN apk add --no-cache gzip
+RUN apk add --no-cache bash
+
 
 # Instalação do Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
