@@ -17,6 +17,8 @@ RUN apk add --no-cache tar
 RUN apk add --no-cache luarocks
 RUN apk add --no-cache gzip
 RUN apk add --no-cache bash
+# Install pip, build tools (build-base), and unzip
+RUN apk add --no-cache pipx build-base unzip
 
 
 # Instalação do Poetry
@@ -29,6 +31,9 @@ RUN npm install -g pyright
 RUN npm install -g @angular/cli
 RUN npm install -g json-server
 RUN npm install -g tailwindcss-language-server
+
+# Python
+RUN pipx install hererocks
 
 # Criar diretório para os arquivos de configuração do Neovim
 RUN mkdir -p /root/.config/nvim/lua
