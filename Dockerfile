@@ -1,6 +1,6 @@
 FROM alpine:3.23
 
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pypoetry/venv/bin
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pypoetry/venv/bin:/root/.local/bin
 
 RUN apk update && apk upgrade --available 
 RUN apk add --no-cache neovim
@@ -19,11 +19,14 @@ RUN apk add --no-cache gzip
 RUN apk add --no-cache bash
 # Install pip, build tools (build-base), and unzip
 RUN apk add --no-cache pipx build-base unzip
-
+RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ripgrep
 
 # Instalação do Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
-RUN apk add --no-cache ripgrep
+
+# Instalação do UV 
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # NPM
 RUN npm install -g typescript typescript-language-server
@@ -31,6 +34,7 @@ RUN npm install -g pyright
 RUN npm install -g @angular/cli
 RUN npm install -g json-server
 RUN npm install -g tailwindcss-language-server
+RUN npm install -g tree-sitter-cli
 
 # Python
 RUN pipx install hererocks
