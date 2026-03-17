@@ -21,6 +21,7 @@ RUN apk add --no-cache bash
 RUN apk add --no-cache pipx build-base unzip
 RUN apk add --no-cache ca-certificates
 RUN apk add --no-cache ripgrep
+RUN apk add --no-cache clang
 
 # Instalação do Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
