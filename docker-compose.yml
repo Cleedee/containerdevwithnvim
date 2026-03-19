@@ -1,5 +1,6 @@
 services:
   nvim:
+    container_name: nvim
     build: .
     deploy:
       replicas: 1
@@ -12,4 +13,3 @@ services:
     volumes:
       - ./projects/:/root/workspace
       - ./config/:/root/.config/nvim
-
