@@ -1,30 +1,31 @@
-FROM alpine:3.23
+FROM debian:stable-slim
 
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pypoetry/venv/bin:/root/.local/bin
+RUN apt-get update
 
-RUN apk update && apk upgrade --available 
-RUN apk add --no-cache neovim
-RUN apk add --no-cache neovim-doc
-RUN apk add --update python3
-RUN apk add --no-cache curl
-RUN apk add --no-cache gcc
-RUN apk add --no-cache python3-dev
-RUN apk add --no-cache libc-dev
-RUN apk add --update alpine-sdk linux-headers
-RUN apk add --no-cache npm
-RUN apk add --no-cache fd
-RUN apk add --no-cache tar
-RUN apk add --no-cache luarocks
-RUN apk add --no-cache gzip
-RUN apk add --no-cache bash
-# Install pip, build tools (build-base), and unzip
-RUN apk add --no-cache pipx build-base unzip
-RUN apk add --no-cache ca-certificates
-RUN apk add --no-cache ripgrep
-RUN apk add --no-cache clang
+RUN apt-get install -y python3
+RUN apt-get install -y curl
+RUN apt-get install -y gcc
+RUN apt-get install -y python3-dev
+RUN apt-get install -y npm
+RUN apt-get install -y fd-find
+RUN apt-get install -y tar
+RUN apt-get install -y luarocks
+RUN apt-get install -y gzip
+RUN apt-get install -y unzip
+RUN apt-get install -y pipx
+RUN apt-get install -y ca-certificates
+RUN apt-get install -y ripgrep
+RUN apt-get install -y clang
+RUN apt-get install -y libfuse2 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instalação do Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+WORKDIR /opt
+RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage \
+    && chmod +x nvim-linux-x86_64.appimage
+
+RUN ./nvim-linux-x86_64.appimage --appimage-extract \
+    && ln -s /opt/squashfs-root/AppRun /usr/local/bin/nvim \
+    && rm nvim-linux-x86_64.appimage
 
 # Instalação do UV 
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh

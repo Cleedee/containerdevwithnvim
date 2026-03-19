@@ -1,0 +1,61 @@
+FROM alpine:3.23
+
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pypoetry/venv/bin:/root/.local/bin
+
+RUN apk update && apk upgrade --available 
+RUN apk add --no-cache neovim
+RUN apk add --no-cache neovim-doc
+RUN apk add --update python3
+RUN apk add --no-cache curl
+RUN apk add --no-cache gcc
+RUN apk add --no-cache python3-dev
+RUN apk add --no-cache libc-dev
+RUN apk add --update alpine-sdk linux-headers
+RUN apk add --no-cache npm
+RUN apk add --no-cache fd
+RUN apk add --no-cache tar
+RUN apk add --no-cache luarocks
+RUN apk add --no-cache gzip
+RUN apk add --no-cache bash
+# Install pip, build tools (build-base), and unzip
+RUN apk add --no-cache pipx build-base unzip
+RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ripgrep
+RUN apk add --no-cache clang
+
+# Instalação do Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Instalação do UV 
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# NPM
+RUN npm install -g typescript typescript-language-server
+RUN npm install -g pyright
+RUN npm install -g @angular/cli
+RUN npm install -g json-server
+RUN npm install -g tailwindcss-language-server
+RUN npm install -g tree-sitter-cli
+
+# Python
+RUN pipx install hererocks
+
+# Criar diretório para os arquivos de configuração do Neovim
+RUN mkdir -p /root/.config/nvim/lua
+
+# Copiar arquivos de confiiguração do Neovim
+# COPY config/ /root/.config/nvim/
+
+# Copiar profile para /etc/profile
+COPY ./profile /etc/profile
+
+# Criar diretório para os projetos (deveria ser montado do host).
+RUN mkdir -p /root/workspace
+
+# Informar a localização padrão para iniciar o container
+WORKDIR /root/workspace
+
+EXPOSE 4200
+EXPOSE 3000
+
+CMD ["tail", "-f", "/dev/null"]
