@@ -13,3 +13,7 @@ services:
     volumes:
       - ./projects/:/root/workspace
       - ./config/:/root/.config/nvim
+      - nvim_data:/root/.local/share/nvim # Persiste plugins
+
+volumes:
+  nvim_data:
