@@ -10,6 +10,7 @@ services:
     ports:
       - "4200:4200"
       - "3000:3000"
+      - "8081:8081"
     volumes:
       - ./projects/:/root/workspace
       - ./config/:/root/.config/nvim
